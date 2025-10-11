@@ -46,4 +46,9 @@ public class ShopController {
         productService.removeProduct(productName);
 
     }
+
+    @RequestMapping(value="/getAllProduct", method = RequestMethod.GET)
+    public void getAllProduct(){
+        productService.getAllProduct();
+    }
 }

@@ -28,4 +28,8 @@ public class ProductService {
     public void removeProduct(String productName) {
     productRepository.deleteByProductNameIgnoreCase(productName);
     }
+
+    public List<Product> getAllProduct() {
+        return productRepository.findAll();
+    }
 }
