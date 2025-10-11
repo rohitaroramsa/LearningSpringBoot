@@ -44,7 +44,7 @@ public class ShopController {
 
 
     @RequestMapping(value = "/delete-product", method=RequestMethod.DELETE)
-    public void deleteProduct(String productName){
+    public void deleteProduct(@RequestParam String productName){
         productService.removeProduct(productName);
 
     }
