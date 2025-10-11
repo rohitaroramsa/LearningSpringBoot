@@ -8,6 +8,8 @@ Most basic thing about Spring Boot repo structure:
 - repository: extends JpaRepository to access CRUD functions
 - App class to contain @SpringBootApplication annotation, and  SpringApplication.run(YourApp.class, args);
 
+delete jpa call needed @Transactional
+
 POST
 
 Example: 
