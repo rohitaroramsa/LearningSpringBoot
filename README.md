@@ -1,4 +1,12 @@
+# Self Learning practice of Spring Boot
 
+## Basic of Spring Boot to Practice
+Most basic thing about Spring Boot repo structure:
+- controller package: defines entry points
+- service: controllers call the service it depends on
+- model: database/Datastructure model
+- repository: extends JpaRepository to access CRUD functions
+- App class to contain @SpringBootApplication annotation, and  SpringApplication.run(YourApp.class, args);
 
 POST
 
