@@ -9,5 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> { }
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    void deleteByProductNameIgnoreCase(String productName);
+}
 

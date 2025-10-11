@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 public class ShopController {
@@ -34,10 +36,21 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value="/addProduct", method=RequestMethod.POST)
+    @RequestMapping(value="/add-product", method=RequestMethod.POST)
     private void addProduct(@RequestParam String productName, @RequestParam int productCost){
         Product product = new Product(productName, productCost);
         productService.addProduct(product);
     }
 
+
+    @RequestMapping(value = "/delete-product", method=RequestMethod.DELETE)
+    public void deleteProduct(@RequestParam String productName){
+        productService.removeProduct(productName);
+
+    }
+
+    @RequestMapping(value="/getAllProduct", method = RequestMethod.GET)
+    public List<Product> getAllProduct(){
+        return productService.getAllProduct();
+    }
 }
