@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +24,8 @@ public class ProductService {
 
     }
 
+    @Transactional
+    public void removeProduct(String productName) {
+    productRepository.deleteByProductNameIgnoreCase(productName);
+    }
 }
