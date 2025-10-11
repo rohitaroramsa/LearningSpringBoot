@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 public class ShopController {
@@ -48,7 +50,7 @@ public class ShopController {
     }
 
     @RequestMapping(value="/getAllProduct", method = RequestMethod.GET)
-    public void getAllProduct(){
-        productService.getAllProduct();
+    public List<Product> getAllProduct(){
+        return productService.getAllProduct();
     }
 }
