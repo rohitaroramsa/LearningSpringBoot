@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,19 @@ public class ShopController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String productAvailable(@RequestParam String product){
-        Boolean productAvailable = productService.ProductAvailable(product);
+    public String productAvailable(@RequestParam String productName){
+        Boolean productAvailable = productService.productAvailable(productName);
         if(productAvailable) {
-            return(product + " is available");
+            return(productName + " is available");
         }
-        else {            return(product + " is not available");
+        else { return(productName + " is not available");
         }
     }
 
+    @RequestMapping(value="/addProduct", method=RequestMethod.POST)
+    private void addProduct(@RequestParam String productName, @RequestParam int productCost){
+        Product product = new Product(productName, productCost);
+        productService.addProduct(product);
+    }
 
 }
