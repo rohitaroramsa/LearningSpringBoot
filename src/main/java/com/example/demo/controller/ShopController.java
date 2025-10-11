@@ -34,10 +34,16 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value="/addProduct", method=RequestMethod.POST)
+    @RequestMapping(value="/add-product", method=RequestMethod.POST)
     private void addProduct(@RequestParam String productName, @RequestParam int productCost){
         Product product = new Product(productName, productCost);
         productService.addProduct(product);
     }
 
+
+    @RequestMapping(value = "/delete-product", method=RequestMethod.DELETE)
+    public void deleteProduct(String productName){
+        productService.removeProduct(productName);
+
+    }
 }
