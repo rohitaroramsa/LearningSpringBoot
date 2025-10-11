@@ -1,24 +1,26 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Product;
+import com.example.demo.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ProductService {
+    @Autowired private ProductRepository productRepository;
 
-    List<String> products = new ArrayList<>();
-
-    public ProductService(){
-        products.addAll(Arrays.asList("TV", "Mobile", "Tablet"));
+    public Boolean productAvailable(String product){
+        List<Product> products = productRepository.findAll(); // get all products from DB
+        return products.stream().anyMatch(p->p.getProductName().equalsIgnoreCase(product));
     }
 
-    public Boolean ProductAvailable(String product){
-        Boolean available = products.stream().anyMatch(p->p.equalsIgnoreCase(product));
-        return available;
+    public void addProduct(Product product){
+        productRepository.save(product);
+        System.out.println("product saved");
+
     }
 
 }
