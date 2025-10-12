@@ -46,7 +46,7 @@ public class ShopController {
     }
 
     @RequestMapping(value="/add-product", method=RequestMethod.POST)
-    private ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam int productCost){
+    public ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam int productCost){
         Product product = new Product(productName, productCost);
         productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.OK).body("product added!");
