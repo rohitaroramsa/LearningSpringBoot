@@ -4,6 +4,8 @@ import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,35 +24,44 @@ public class ShopController {
     private ProductService productService;
 
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
-    public String shopStatus(){
-        return this.shopStatus.shopOpen();
+    public ResponseEntity<String> shopStatus(){
+        boolean shopOpen = Boolean.parseBoolean(this.shopStatus.shopOpen());
+        if(shopOpen){
+            return ResponseEntity.ok("shop is open");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("shop is not open");
+        }
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String productAvailable(@RequestParam String productName){
+    public ResponseEntity<String> productAvailable(@RequestParam String productName){
         Boolean productAvailable = productService.productAvailable(productName);
         if(productAvailable) {
-            return(productName + " is available");
+            return ResponseEntity.status(HttpStatus.OK).body(productName + " is available");
         }
-        else { return(productName + " is not available");
+        else {
+            return ResponseEntity.status(HttpStatus.OK).body(productName + " is not available");
         }
     }
 
     @RequestMapping(value="/add-product", method=RequestMethod.POST)
-    private void addProduct(@RequestParam String productName, @RequestParam int productCost){
+    private ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam int productCost){
         Product product = new Product(productName, productCost);
         productService.addProduct(product);
+        return ResponseEntity.status(HttpStatus.OK).body("product added!");
     }
 
 
     @RequestMapping(value = "/delete-product", method=RequestMethod.DELETE)
-    public void deleteProduct(@RequestParam String productName){
-        productService.removeProduct(productName);
-
+    public ResponseEntity<String> deleteProduct(@RequestParam String productName){
+        int n = productService.removeProduct(productName);
+        String body = n>0 ? "product deleted":"nothing to delete";
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
     @RequestMapping(value="/getAllProduct", method = RequestMethod.GET)
-    public List<Product> getAllProduct(){
-        return productService.getAllProduct();
+    public ResponseEntity<List<Product>> getAllProduct(){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProduct());
     }
 }
