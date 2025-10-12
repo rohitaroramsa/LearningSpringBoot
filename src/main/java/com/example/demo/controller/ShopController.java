@@ -6,10 +6,7 @@ import com.example.demo.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class ShopController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/shop", method = RequestMethod.GET)
+    @GetMapping(value = "/shop")
     public ResponseEntity<String> shopStatus(){
         boolean shopOpen = Boolean.parseBoolean(this.shopStatus.shopOpen());
         if(shopOpen){
@@ -34,7 +31,7 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @GetMapping(value = "/products")
     public ResponseEntity<String> productAvailable(@RequestParam String productName){
         Boolean productAvailable = productService.productAvailable(productName);
         if(productAvailable) {
@@ -45,7 +42,7 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value="/add-product", method=RequestMethod.POST)
+    @PostMapping(value="/add-product")
     public ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam int productCost){
         Product product = new Product(productName, productCost);
         productService.addProduct(product);
@@ -53,14 +50,14 @@ public class ShopController {
     }
 
 
-    @RequestMapping(value = "/delete-product", method=RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete-product")
     public ResponseEntity<String> deleteProduct(@RequestParam String productName){
         int n = productService.removeProduct(productName);
         String body = n>0 ? "product deleted":"nothing to delete";
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    @RequestMapping(value="/getAllProduct", method = RequestMethod.GET)
+    @GetMapping(value="/getAllProduct")
     public ResponseEntity<List<Product>> getAllProduct(){
         return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProduct());
     }
