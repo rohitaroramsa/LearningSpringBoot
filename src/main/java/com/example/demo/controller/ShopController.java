@@ -37,7 +37,7 @@ public class ShopController {
 
     @GetMapping(value = "/products/{productName}")
     public ResponseEntity<String> productAvailable(@PathVariable String productName){
-        Boolean productAvailable = productService.productAvailable(productName);
+        boolean productAvailable = productService.isProductAvailable(productName);
         if(productAvailable) {
             return ResponseEntity.status(HttpStatus.OK).body(productName + " is available");
         }
@@ -63,6 +63,6 @@ public class ShopController {
 
     @GetMapping(value="/products/all")
     public ResponseEntity<List<Product>> getAllProduct(){
-        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProduct());
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
 }
