@@ -14,24 +14,26 @@ POST
 
 Example: 
 using curl
+
 ```
-curl -X POST http://localhost:8080/add-product?productName -H "Content-Type: application/x-www-form-urlencoded" -d "name=Alice&age=25"
-```
-```
-curl -X POST "http://localhost:8080/add-product?productName=Tv&productCost=100"
+curl -X POST "http://localhost:8080/shop/products?productName=Tv&productCost=100"
 ```
 
 ### get all products
 ```
-curl -X GET "http://localhost:8080/getAllProduct"
+curl -X GET "http://localhost:8080/shop/products/all"
 ```
 
 ### Deletion curl 
 ```
-curl -X DELETE "http://localhost:8080/delete-product?productName=radio"
+curl -X DELETE "http://localhost:8080/shop/products/mobile"
 ```
 
 ### GET Shop
 ```shell
-curl -X GET "http://localhost:8080/shop"
+curl -X GET "http://localhost:8080/shop/shop"
+```
+
+```shell
+curl -X GET "http://localhost:8080/shop/products/mobile"
 ```
