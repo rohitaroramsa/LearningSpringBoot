@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -47,7 +48,7 @@ public class ShopController {
     }
 
     @PostMapping(value="/products")
-    public ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam int productCost){
+    public ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam BigDecimal productCost){
         Product product = new Product(productName, productCost);
         productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body("product added!");
