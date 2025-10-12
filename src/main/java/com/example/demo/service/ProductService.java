@@ -26,8 +26,9 @@ public class ProductService {
     }
 
     @Transactional
-    public void removeProduct(String productName) {
-    productRepository.deleteByProductNameIgnoreCase(productName);
+    public int removeProduct(String productName) {
+    Integer n = productRepository.deleteByProductNameIgnoreCase(productName);
+        return n!=null?n:0;
     }
 
     public List<Product> getAllProduct() {

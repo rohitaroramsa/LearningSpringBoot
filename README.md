@@ -30,3 +30,8 @@ curl -X GET "http://localhost:8080/getAllProduct"
 ```
 curl -X DELETE "http://localhost:8080/delete-product?productName=radio"
 ```
+
+### GET Shop
+```shell
+curl -X GET "http://localhost:8080/shop"
+```
