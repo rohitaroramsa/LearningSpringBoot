@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 
@@ -36,7 +37,7 @@ public class ProductService {
         return n!=null?n:0;
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ResponseDto> getAllProducts() {
+        return productRepository.findAll().stream().map(p-> new ResponseDto(p.getProductName(),p.getPrice(),p.getId())).toList();
     }
 }

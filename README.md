@@ -16,7 +16,7 @@ Example:
 using curl
 
 ```
-curl -X POST "http://localhost:8080/shop/products?productName=Tv&productCost=100"
+curl -X POST "http://localhost:8080/shop/products" -H "Content-Type: application/json" -d "{\"productName\":\"TV\", \"productCost\":155}"
 ```
 
 ### get all products

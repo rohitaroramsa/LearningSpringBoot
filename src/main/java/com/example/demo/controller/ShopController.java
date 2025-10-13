@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.RequestDto;
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ShopService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -48,8 +50,8 @@ public class ShopController {
     }
 
     @PostMapping(value="/products")
-    public ResponseEntity<String> addProduct(@RequestParam String productName, @RequestParam BigDecimal productCost){
-        Product product = new Product(productName, productCost);
+    public ResponseEntity<String> addProduct(@Valid @RequestBody RequestDto requestDto){
+        Product product = new Product(requestDto.getProductName(), requestDto.getProductCost());
         productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body("product added!");
     }
@@ -63,7 +65,7 @@ public class ShopController {
     }
 
     @GetMapping(value="/products/all")
-    public ResponseEntity<List<Product>> getAllProduct(){
+    public ResponseEntity<List<ResponseDto>> getAllProduct(){
         return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
 }
