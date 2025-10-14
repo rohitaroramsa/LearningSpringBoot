@@ -26,9 +26,8 @@ public class ProductService {
     }
 
     public void addProduct(Product product){
-        productRepository.save(product);
-        System.out.println("product saved");
-
+        Integer rowsUpdated = productRepository.saveProduct(product);
+        System.out.println(rowsUpdated>= 1 ? "product saved" : "product not saved");
     }
 
     @Transactional
