@@ -28,11 +28,11 @@ public class ProductServiceTest {
     void addProductTest(){
     Product product = new Product();
 
-    when(productRepository.saveProduct(product)).thenReturn(1);
+//    when(productRepository.saveProduct(product)).thenReturn(1);
 
     productService.addProduct(product);
 
-    verify(productRepository).saveProduct(product);
+    verify(productRepository).save(product);
     }
 
 //    @Test
