@@ -18,16 +18,56 @@ repositories {
     mavenCentral()
 }
 
+// Make acceptanceImplementation extend testImplementation
+configurations {
+    acceptanceImplementation.extendsFrom testImplementation
+}
+
+// Custom source set for acceptance tests
+sourceSets {
+    acceptance {
+        java {
+            srcDirs = ['src/acceptance/java']
+        }
+        resources {
+            srcDirs = ['src/acceptance/resources']
+        }
+        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'com.h2database:h2'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Cucumber for acceptance tests
+    acceptanceImplementation 'io.cucumber:cucumber-java:7.29.0'
+    acceptanceImplementation 'io.cucumber:cucumber-junit:7.29.0'
+    acceptanceImplementation 'io.rest-assured:rest-assured:5.3.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+// Standard test task
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// Task to run acceptance tests
+tasks.register('acceptanceTest', Test) {
+    description = 'Runs Cucumber acceptance tests'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.acceptance.output.classesDirs
+    classpath = sourceSets.acceptance.runtimeClasspath
+
+    // Just run all
+
+    // Just run all classes in the source set; no need for includeCategories
+    useJUnit()  // because Cucumber runner uses JUnit 4
 }
