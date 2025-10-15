@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Integer deleteByProductNameIgnoreCase(String productName);
-    Integer saveProduct(Product product);
 }
 

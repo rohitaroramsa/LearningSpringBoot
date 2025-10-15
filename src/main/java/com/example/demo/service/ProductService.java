@@ -25,9 +25,10 @@ public class ProductService {
         return products.stream().anyMatch(p->p.getProductName().equalsIgnoreCase(product));
     }
 
-    public void addProduct(Product product){
-        Integer rowsUpdated = productRepository.saveProduct(product);
-        System.out.println(rowsUpdated>= 1 ? "product saved" : "product not saved");
+    public void addProduct(Product product) {
+        productRepository.save(product);
+//                ? System.out.println( "product saved") : System.out.println("product not saved");
+
     }
 
     @Transactional
