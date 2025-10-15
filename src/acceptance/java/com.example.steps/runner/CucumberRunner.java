@@ -8,7 +8,9 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/acceptance/resources/features",
         glue = "com.example.steps",
-        plugin = {"pretty", "html:target/cucumber-reports"}
+        plugin = {
+                "html:build/reports/tests/acceptanceTest/html/index.html"
+        }
 )
 public class CucumberRunner {
 }
