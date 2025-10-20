@@ -28,8 +28,6 @@ public class ProductServiceTest {
     void addProductTest(){
     Product product = new Product();
 
-//    when(productRepository.saveProduct(product)).thenReturn(1);
-
     productService.addProduct(product);
 
     verify(productRepository).save(product);
