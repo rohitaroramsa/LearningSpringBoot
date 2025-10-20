@@ -59,9 +59,8 @@ public class ShopController {
 
     @DeleteMapping(value = "/products/{productName}")
     public ResponseEntity<String> deleteProduct(@PathVariable String productName){
-        int n = productService.removeProduct(productName);
-        String body = n>0 ? "product deleted":"nothing to delete";
-        return ResponseEntity.status(HttpStatus.OK).body(body);
+        productService.removeProduct(productName);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(productName + " is deleted!");
     }
 
     @GetMapping(value="/products/all")
