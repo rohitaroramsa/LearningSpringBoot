@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ResponseDto;
-import com.example.demo.exception.DuplicateProductException;
+import com.example.demo.exceptions.DuplicateProductException;
 import com.example.demo.exceptions.ProductNotFoundException;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
