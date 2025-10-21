@@ -1,6 +1,7 @@
 package service.test;
 
 import com.example.demo.exceptions.DuplicateProductException;
+import com.example.demo.exceptions.ProductNotFoundException;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
@@ -66,13 +67,12 @@ public class ProductServiceTest {
     }
 
     @Test
-    void removeProductIsFailed(){
+    void removeProduct_throwsException_whenProductDoesNotExist(){
         String productName="mobile";
         when(productRepository.deleteByProductNameIgnoreCase(productName)).thenReturn(null);
-        int noRecordsRemoved = productService.removeProduct(productName);
+        ProductNotFoundException ex = assertThrows(ProductNotFoundException.class,()->productService.removeProduct(productName));
+        assertEquals("Could not delete, as can not find a product with name: mobile", ex.getMessage());
         verify(productRepository).deleteByProductNameIgnoreCase(productName);
-        assertEquals(0, noRecordsRemoved);
     }
-
 
 }
