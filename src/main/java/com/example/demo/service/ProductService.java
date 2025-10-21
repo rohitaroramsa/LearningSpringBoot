@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,13 +30,11 @@ public class ProductService {
     }
 
     public void addProduct(Product product){
-        try {
-             productRepository.save(product);
-//            System.out.println(rowsUpdated >= 1 ? "product saved" : "product not saved");
-        }
-        catch(DataIntegrityViolationException e){
+        boolean productAlreadyExists = productRepository.findAll().stream().anyMatch(e->e.getProductName().equalsIgnoreCase(product.getProductName()));
+        if(productAlreadyExists) {
             throw new DuplicateProductException(product.getProductName());
         }
+        productRepository.save(product);
         }
 
     @Transactional
