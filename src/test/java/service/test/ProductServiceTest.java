@@ -1,5 +1,6 @@
 package service.test;
 
+import com.example.demo.exceptions.DuplicateProductException;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
@@ -10,6 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,12 +36,21 @@ public class ProductServiceTest {
     verify(productRepository).save(product);
     }
 
-//    @Test
-//    void addProductTestProductIsNull(){
-//    Product product = null;
-//    RuntimeException exc = assertThrows(RuntimeException.class,()->productService.addProduct(product));
-//    verify(productRepository).save(product);
-//    }
+    @Test
+    void addingDuplicateProductNameThrowsException(){
+
+        Product existing = new Product();
+        existing.setProductName("Mug");
+
+
+        Product product = new Product();
+        product.setProductName("Mug");
+        when(productRepository.findAll()).thenReturn(List.of(existing));
+
+        assertThrows(DuplicateProductException.class, ()->productService.addProduct(product));
+        verify(productRepository, atMost(0)).save(any());
+    }
+
 
     @ParameterizedTest
     @CsvSource({
