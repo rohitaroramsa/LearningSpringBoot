@@ -1,0 +1,18 @@
+// gradle/gatling.gradle
+plugins {
+    id 'scala'
+    id 'io.gatling.gradle' version '3.9.6'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Gatling runtime + charts
+    gatling 'io.gatling.highcharts:gatling-charts-highcharts:3.9.6'
+}
+
+gatling {
+    // default configuration — tweak if needed
+}
